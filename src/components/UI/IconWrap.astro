@@ -1,0 +1,19 @@
+---
+import { Icon } from 'astro-icon';
+
+type PathProp = {
+  href: string;
+  icon: string;
+};
+
+const { href, icon } = Astro.props as PathProp;
+---
+
+<a
+  href={href}
+  rel="noreferrer"
+  target="_blank"
+  class="w-9 h-9 grid place-items-center bg-clr-green text-lg rounded-full hover:bg-white hover:text-clr-green"
+>
+  <Icon name={icon} class="shake-top w-8 group-hover:text-clr-green w-5" />
+</a>

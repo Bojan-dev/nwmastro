@@ -1,0 +1,20 @@
+---
+import '../components/global/GlobalStyles.astro';
+import Navigation from '../layouts/Navigation.astro';
+import { Icon } from 'astro-icon';
+import Btn from '../components/UI/Btn.astro';
+---
+
+<>
+  <Navigation />
+  <main
+    class="h-screen min-h-[50em] bg-center grid place-content-center gap-7 bg-hero-not-found bg-cover pb-[10vh] text-center text-white"
+  >
+    <Icon name="bi:exclamation-triangle-fill" class="m-auto h-14" />
+    <h1 class="font-bold text-h1">404. Page not Found!</h1>
+    <p>
+      Sorry, we cannot find this page, but don't worry, you can always go back.
+    </p>
+    <Btn href="/" classes="px-20 py-3 m-auto">Home Page</Btn>
+  </main>
+</>

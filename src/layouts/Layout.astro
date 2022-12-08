@@ -1,0 +1,61 @@
+---
+import Navigation from './Navigation.astro';
+import GoogleAnalytics from '../components/global/GoogleAnalytics.astro';
+
+interface HeadProps {
+  title: string;
+  description: string;
+  path: string;
+}
+
+const { title, description, path } = Astro.props as HeadProps;
+---
+
+<!DOCTYPE html>
+<html class="overflow-x-hidden" lang="en">
+  <GoogleAnalytics />
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale = 1.0, 
+    maximum-scale=1.0, user-scalable=no"
+  />
+  <meta name="description" content={description} />
+  <meta
+    property="og:title"
+    content="Best Moving company in Illinois - No Worries Moving"
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:description"
+    content="No Worries Moving is a moving company with 15 years of experience in the moving industry and over 5 thousand happy clients."
+  />
+  <meta
+    property="og:image"
+    content="https://scontent.fbeg11-1.fna.fbcdn.net/v/t39.30808-6/304963803_407364264844014_1833805682296115789_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=e3f864&_nc_ohc=KbA6uLgNQlEAX94u0-c&_nc_ht=scontent.fbeg11-1.fna&oh=00_AfBaArG0ieF5fPkvsWcgoFB7pK71y4GrVm6XqaI-iN7u2w&oe=63935897"
+  />
+  <meta property="og:url" content="https://noworriesmoving.com/" />
+  <meta property="og:site_name" content="No Worries Moving" />
+  <meta name="twitter:image:alt" content="NWM company trucks" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta
+    name="twitter:title"
+    property="og:title"
+    content="Best Moving company in Illinois - No Worries Moving"
+  />
+  <meta name="theme-color" content="#ffffff" />
+  <meta
+    name="google-site-verification"
+    content="_97MvHbwuJTBgjiwXpXIP0dTSzEnusZW4luU5M5Ung8"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,600;1,300&display=swap"
+    rel="stylesheet"
+  />
+  <title>No Worries Moving {title}</title>
+  <link rel="icon" type="image/svg" href="/logo.svg" />
+  <body>
+    <Navigation path={path} />
+    <slot />
+  </body>
+</html>

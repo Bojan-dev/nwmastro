@@ -1,0 +1,194 @@
+---
+import illustration from '../imgs/home/hero-illustration.svg';
+import Layout from '../layouts/Layout.astro';
+import Btn from '../components/UI/Btn.astro';
+import IconWrap from '../components/UI/IconWrap.astro';
+---
+
+<style>
+  .bkg-lines {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.6) 0%,
+      rgba(255, 255, 255, 0.15) 100%
+    );
+  }
+
+  .hero-header::before,
+  .hero-header::after {
+    content: 'NoWorriesMoving!';
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .hero-header::after {
+    transform: translateX(-0.06em);
+    opacity: 0.4;
+  }
+
+  .hero-header::before {
+    transform: translateX(-0.12em);
+    opacity: 0.2;
+  }
+
+  .hero-svg-h {
+    height: calc(
+      100% - ((theme('padding.mainBtnP') * 2.5) + theme('fontSize.lg'))
+    );
+  }
+
+  @keyframes dash {
+    0% {
+      stroke-dashoffset: 1000;
+    }
+    20% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .svg-path-anim {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash 10s linear forwards infinite;
+  }
+
+  @keyframes plane {
+    0% {
+      opacity: 0;
+    }
+    16% {
+      opacity: 0;
+    }
+    18% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .svg-plane-anim {
+    animation: plane 10s linear infinite;
+    opacity: 0;
+  }
+</style>
+
+<Layout title={'- Home'} description={'Home Page'} path={'/'}>
+  <aside class="fixed bg-white right-[5vw] bottom-2/4 translate-y-2/4"></aside>
+  <main
+    class="h-screen min-h-[52em] grid place-content-center bg-center bg-hero-home bg-cover text-white pt-16"
+  >
+    <div class="flex flex-col gap-12 my-container">
+      <h1 class="text-h1">
+        MOVERS THAT WE{' '}
+        <span class="text-clr-green font-semibold">TRUST!</span>
+      </h1>
+      <div class="relative flex justify-center w-fit m-auto">
+        <div
+          class="flex flex-col translate-x-[-0.35rem] justify-between scale-x-[-1] self-stretch"
+        >
+          {
+            Array(9)
+              .fill('')
+              .map((line, i) => (
+                <div
+                  style={{ width: `${(i + 1) * 6}px` }}
+                  class="h-px bg-white bkg-lines"
+                />
+              ))
+          }
+        </div>
+        <h2 class="font-semibold relative hero-header inline-flex text-h1">
+          NoWorriesMoving!
+        </h2>
+      </div>
+    </div>
+    <div
+      class="relative flex flex-col items-center m-auto translate-y-10 my-container"
+    >
+      <img
+        class="w-2/5 min-w-[25rem]"
+        src={illustration}
+        alt="Book quickly on button click"
+      />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="197.484"
+        height="546.735"
+        viewBox="0 0 197.484 546.735"
+        class="absolute hero-svg-h translate-x-[-5rem] 2xl:translate-x-[-7.5rem]"
+      >
+        <g
+          id="Group_2600"
+          data-name="Group 2600"
+          transform="translate(-332.693 -144.79)"
+        >
+          <g
+            id="Group_2404"
+            data-name="Group 2404"
+            transform="matrix(0.848, 0.53, -0.53, 0.848, 448.262, 628.645)"
+            class="svg-plane-anim"
+          >
+            <path
+              id="Path_2908"
+              data-name="Path 2908"
+              d="M0,12.992l42.532,6.693L14.527,0,13,6.159,2.608,7.887Z"
+              transform="translate(27.407 10.759)"
+              fill="#418203"></path>
+            <path
+              id="Path_2909"
+              data-name="Path 2909"
+              d="M69.939,21.045l-35.2-18.8L0,0Z"
+              transform="translate(0 9.398)"
+              fill="#41a503"></path>
+            <path
+              id="Path_2910"
+              data-name="Path 2910"
+              d="M0,10.759,28.005,30.444,6.544,0Z"
+              transform="translate(41.934 0)"
+              fill="#41a503"></path>
+          </g>
+          <path
+            id="Path_2914"
+            data-name="Path 2914"
+            d="M387.653,312.09c-1.364-32.48,97.921-157.2,167.344-111.5S538.8,312.3,535.713,366.458s49.367,88.858,46.282,142.174S512.768,670.01,526.653,697.09"
+            transform="translate(-53.443 -44.309)"
+            fill="none"
+            stroke="#019ae6"
+            stroke-linecap="round"
+            stroke-width="3"
+            stroke-dasharray="8"
+            class="svg-path-anim"></path>
+        </g>
+      </svg>
+
+      <div class="flex gap-8">
+        <Btn href="/pricing" classes="px-20 py-mainBtnP">BOOK NOW</Btn>
+        <a
+          href="/services"
+          class="px-20 py-mainBtnP bg-white text-lg font-semibold text-clr-green outline-clr-green outline-offset-[-2px] outline-2 hover:bg-transparent hover:text-white hover:outline"
+        >
+          OUR SERVICES
+        </a>
+      </div>
+      <div class="absolute flex flex-col bottom-0 left-[7.5vw] gap-3">
+        <IconWrap
+          href={'https://www.facebook.com/noworriesmoving.us'}
+          icon={'grommet-icons:facebook-option'}
+        />
+        <IconWrap
+          href={'https://www.instagram.com/noworriesmoving/'}
+          icon={'mdi:instagram'}
+        />
+        <IconWrap
+          href={'https://www.linkedin.com/company/noworriesmoving/'}
+          icon={'grommet-icons:linkedin-option'}
+        />
+      </div>
+    </div>
+  </main>
+</Layout>

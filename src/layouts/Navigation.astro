@@ -1,0 +1,152 @@
+---
+import '../components/global/GlobalStyles.astro';
+import { Icon } from 'astro-icon';
+import logo from '../imgs/logostroke.webp';
+
+type PathProp = {
+  path: string;
+};
+
+const { path } = Astro.props as PathProp;
+
+const activeClasses =
+  'relative before:absolute before:h-[2px] before:w-1/2 before:bg-clr-green before:bg-clr-green before:bottom-0 before:left-0 before:rounded-xl';
+const hoverClasses =
+  'relative hover:before:absolute hover:before:h-[2px] hover:before:w-1/2 hover:before:bg-clr-green hover:before:bg-clr-green hover:before:bottom-0 hover:before:left-0 hover:before:rounded-xl';
+
+const websitePages = [
+  'Home',
+  'Services',
+  'Pricing',
+  'Free Boxes',
+  'About Us',
+  'About You',
+  'Reviews',
+  'Contact',
+];
+---
+
+<style lang="css">
+  @-webkit-keyframes shake-top {
+    0%,
+    100% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+      -webkit-transform-origin: 50% 0;
+      transform-origin: 50% 0;
+    }
+    10% {
+      -webkit-transform: rotate(2deg);
+      transform: rotate(2deg);
+    }
+    20%,
+    40%,
+    60% {
+      -webkit-transform: rotate(-4deg);
+      transform: rotate(-4deg);
+    }
+    30%,
+    50%,
+    70% {
+      -webkit-transform: rotate(4deg);
+      transform: rotate(4deg);
+    }
+    80% {
+      -webkit-transform: rotate(-2deg);
+      transform: rotate(-2deg);
+    }
+    90% {
+      -webkit-transform: rotate(2deg);
+      transform: rotate(2deg);
+    }
+  }
+  @keyframes shake-top {
+    0%,
+    100% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+      -webkit-transform-origin: 50% 0;
+      transform-origin: 50% 0;
+    }
+    2.5% {
+      -webkit-transform: rotate(2deg);
+      transform: rotate(2deg);
+    }
+    5%,
+    10%,
+    15% {
+      -webkit-transform: rotate(-4deg);
+      transform: rotate(-4deg);
+    }
+    7.5%,
+    12.5%,
+    17.5% {
+      -webkit-transform: rotate(4deg);
+      transform: rotate(4deg);
+    }
+    20% {
+      -webkit-transform: rotate(-2deg);
+      transform: rotate(-2deg);
+    }
+    22.5% {
+      -webkit-transform: rotate(2deg);
+      transform: rotate(2deg);
+    }
+  }
+  .shake-top {
+    -webkit-animation: shake-top 6.5s ease-in-out both infinite;
+    animation: shake-top 6.5s ease-in-out both infinite;
+  }
+</style>
+
+<header
+  class="fixed top-0 flex items-center justify-between text-white h-32 my-container left-2/4 translate-x-[-50%]"
+>
+  <a href="/"
+    ><img src={logo} alt="No Worries Moving logo" class="w-[7.5rem]" />
+  </a>
+  <nav class="hidden xl:block">
+    <ul class="flex gap-10">
+      {
+        websitePages.map((page) => {
+          const pagePath =
+            page === 'Home'
+              ? '/'
+              : `/${page.toLocaleLowerCase().replace(' ', '-')}`;
+
+          return (
+            <li>
+              <a
+                href={pagePath}
+                class={path === pagePath ? activeClasses : hoverClasses}
+              >
+                {page}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+  <div class="relative flex gap-7">
+    <a
+      href="tel:8449556683"
+      class="group font-bold text-base flex items-center gap-2 static bottom-0 right-0 translate-y-0 2xl:static 2xl:translate-y-0 xl:absolute xl:translate-y-[150%]"
+      ><Icon
+        name="ic:baseline-phone-iphone"
+        class="shake-top w-8 group-hover:text-clr-green"
+      />
+      (844) 955 6683</a
+    >
+    <!-- absolute bottom-0 right-0 translate-y-[150%] 2xl:static 2xl:translate-y-0 -->
+    <a
+      href="/pricing"
+      class="px-10 py-3 border-clr-green border-[3px] hover:bg-white hover:text-font-gray hover:text-clr-green hover:border-white hidden xl:block"
+      >Get a Quote</a
+    >
+    <Icon
+      name="eva:menu-2-fill"
+      class="-top w-12 group-hover:text-clr-green block xl:hidden"
+    />
+  </div>
+</header>
