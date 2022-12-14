@@ -1,0 +1,31 @@
+---
+import './GlobalStyles.astro';
+
+type SectionProps = {
+  title: string;
+  titleId: string;
+  titleDes: string;
+  isContainer: boolean;
+};
+
+const {
+  title,
+  titleId,
+  titleDes,
+  isContainer = true,
+} = Astro.props as SectionProps;
+
+const isContainerClass = isContainer ? 'my-container' : '';
+---
+
+<section
+  aria-labelledby={titleId}
+  class={`${isContainerClass} text-base my-16 mx-auto`}
+>
+  <div class="flex flex-col items-center text-center gap-3 mb-12 lg:mb-14">
+    <h2 id={titleId} class="text-h2_md md:text-xxl font-semibold">{title}</h2>
+    <p>{titleDes}</p>
+    <div class="w-10 h-0.5 bg-clr-green rounded"></div>
+  </div>
+  <slot />
+</section>

@@ -10,7 +10,7 @@ type PathProp = {
 const { path } = Astro.props as PathProp;
 
 const activeClasses =
-  'relative before:absolute before:h-[2px] before:w-1/2 before:bg-clr-green before:bg-clr-green before:bottom-0 before:left-0 before:rounded-xl';
+  'relative before:absolute before:h-1 before:w-full before:bg-clr-green before:bg-clr-green before:bottom-0 before:left-0 before:rounded-xl xl:before:h-[2px] xl:before:w-1/2';
 const hoverClasses =
   'relative hover:before:absolute hover:before:h-[2px] hover:before:w-1/2 hover:before:bg-clr-green hover:before:bg-clr-green hover:before:bottom-0 hover:before:left-0 hover:before:rounded-xl';
 
@@ -97,16 +97,33 @@ const websitePages = [
     -webkit-animation: shake-top 6.5s ease-in-out both infinite;
     animation: shake-top 6.5s ease-in-out both infinite;
   }
+  .navigation-w {
+    width: 100vw;
+  }
+  @media (min-width: 500px) {
+    .navigation-w {
+      width: 75vw;
+    }
+  }
+  @media (min-width: 768px) {
+    .navigation-w {
+      width: 50vw;
+    }
+  }
 </style>
 
 <header
-  class="fixed top-0 flex items-center justify-between text-white h-32 my-container left-2/4 translate-x-[-50%]"
+  class="absolute top-0 z-40 flex items-center justify-between text-white min-h-[125px] h-fit my-container min-w-full left-2/4 translate-x-negative-50"
 >
-  <a href="/"
-    ><img src={logo} alt="No Worries Moving logo" class="w-[7.5rem]" />
+  <a href="/" class="z-20"
+    ><img src={logo} alt="No Worries Moving logo" class="w-28 sm:w-[7.5rem]" />
   </a>
-  <nav class="hidden xl:block">
-    <ul class="flex gap-10">
+  <nav
+    class="backdrop-blur fixed translate-x-full transition-all duration-500 ease-in overflow-auto pt-32 pb-10 bg-opacity-white h-screen opacity-0 min-h-fit min-w-fit w-10 right-0 top-0 xl:w-fit xl:h-fit xl:block xl:relative xl:bg-transparent xl:pt-0 xl:opacity-100 xl:pb-0 xl:translate-x-0"
+  >
+    <ul
+      class="flex flex-col items-center text-base gap-10 xl:text-sm xl:flex-row"
+    >
       {
         websitePages.map((page) => {
           const pagePath =
@@ -115,10 +132,12 @@ const websitePages = [
               : `/${page.toLocaleLowerCase().replace(' ', '-')}`;
 
           return (
-            <li>
+            <li class=" w-full flex justify-center xl:w-fit">
               <a
                 href={pagePath}
-                class={path === pagePath ? activeClasses : hoverClasses}
+                class={`${
+                  path === pagePath ? activeClasses : hoverClasses
+                } block p-4 w-2/4 text-center bg-clr-blue--dark border text-white xl:p-0 xl:w-fit xl:bg-transparent xl:border-none `}
               >
                 {page}
               </a>
@@ -128,25 +147,102 @@ const websitePages = [
       }
     </ul>
   </nav>
-  <div class="relative flex gap-7">
+  <div class="relative flex gap-4 sm:gap-7">
     <a
       href="tel:8449556683"
-      class="group font-bold text-base flex items-center gap-2 static bottom-0 right-0 translate-y-0 2xl:static 2xl:translate-y-0 xl:absolute xl:translate-y-[150%]"
+      class="group font-base text-sm flex items-center gap-1 static bottom-0 right-0 translate-y-0 2xl:static 2xl:translate-y-0 xl:absolute xl:translate-y-[150%] phone sm:text-base sm:font-bold xl:flex"
       ><Icon
         name="ic:baseline-phone-iphone"
         class="shake-top w-8 group-hover:text-clr-green"
       />
       (844) 955 6683</a
     >
-    <!-- absolute bottom-0 right-0 translate-y-[150%] 2xl:static 2xl:translate-y-0 -->
     <a
       href="/pricing"
-      class="px-10 py-3 border-clr-green border-[3px] hover:bg-white hover:text-font-gray hover:text-clr-green hover:border-white hidden xl:block"
+      class="px-12 py-3 border-clr-green border-[3px] hover:bg-white hover:text-font-gray hover:text-clr-green hover:border-white hidden xl:block"
       >Get a Quote</a
     >
-    <Icon
-      name="eva:menu-2-fill"
-      class="-top w-12 group-hover:text-clr-green block xl:hidden"
-    />
+    <div
+      class="relative w-12 h-8 flex flex-col justify-between items-center xl:hidden cursor-pointer ham-menu"
+    >
+      <div class="w-full top-1/2 h-1 bg-white rounded duration-500"></div>
+      <div class="top-1/2 w-full flex justify-between">
+        <div class="w-5 h-1 bg-white rounded duration-500"></div>
+        <div class="w-5 h-1 bg-white rounded duration-500"></div>
+      </div>
+      <div class="w-full top-1/2 h-1 bg-white rounded duration-500"></div>
+    </div>
   </div>
 </header>
+<div
+  class="overlay hidden fixed opacity-70 z-20 h-screen w-screen bg-black block xl:hidden"
+>
+</div>
+<div class="absolute h-screen top-0 nav-observe 0"></div>
+
+<script is:global>
+  const navClassList = ['absolute', 'translate-y-negative-50'];
+  const toggleClass = (el, classId) => {
+    el.classList.toggle(classId);
+  };
+
+  const hamMenu = document.querySelector('.ham-menu');
+  const navigation = document.querySelector('nav');
+  const overlay = document.querySelector('.overlay');
+  const hamChildren = Array.from(hamMenu.children);
+  const middleLines = Array.from(hamChildren[1].children);
+  const htmlDoc = document.querySelector('html');
+  const phone = document.querySelector('.phone');
+
+  const toggleNav = () => {
+    toggleClass(htmlDoc, 'overflow-y-hidden');
+    toggleClass(navigation, 'opacity-0');
+    toggleClass(overlay, 'hidden');
+    toggleClass(navigation, 'translate-x-full');
+    toggleClass(phone, 'hidden');
+  };
+
+  [hamMenu, overlay].forEach((el) => {
+    el.addEventListener('click', () => {
+      Array.from(hamChildren).forEach((el) => {
+        navClassList.forEach((classId) => toggleClass(el, classId));
+      });
+
+      middleLines.forEach((el) => toggleClass(el, 'opacity-0'));
+
+      toggleClass(middleLines[0], 'translate-x-negative-50vw');
+      toggleClass(middleLines[1], 'translate-x-64');
+      toggleClass(hamChildren[0], 'rotate-45');
+      toggleClass(hamChildren[2], 'rotate-[-45deg]');
+      navigation.classList.toggle('navigation-w');
+      toggleNav();
+    });
+  });
+
+  const header = document.querySelector('header');
+  const navObserver = document.querySelector('.nav-observe');
+
+  const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1,
+  };
+
+  const classesOnShow = ['transition', 'fixed', 'bg-clr-blue', 'min-h-[85px]'];
+  const classesToggle = ['absolute', 'min-h-[125px]'];
+
+  const observeFun = (entries, _) => {
+    if (!entries[0].isIntersecting) {
+      classesOnShow.forEach((classId) => header.classList.add(classId));
+      classesToggle.forEach((classId) => header.classList.remove(classId));
+      return;
+    }
+
+    classesOnShow.forEach((classId) => header.classList.remove(classId));
+    classesToggle.forEach((classId) => header.classList.add(classId));
+  };
+
+  const observer = new IntersectionObserver(observeFun, options);
+
+  observer.observe(navObserver);
+</script>

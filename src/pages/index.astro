@@ -1,8 +1,10 @@
 ---
+import HeroLine from '../components/home/HeroLine.astro';
 import illustration from '../imgs/home/hero-illustration.svg';
 import Layout from '../layouts/Layout.astro';
 import Btn from '../components/UI/Btn.astro';
 import IconWrap from '../components/UI/IconWrap.astro';
+import WhyUs from '../components/home/WhyUs.astro';
 ---
 
 <style>
@@ -33,9 +35,15 @@ import IconWrap from '../components/UI/IconWrap.astro';
   }
 
   .hero-svg-h {
-    height: calc(
-      100% - ((theme('padding.mainBtnP') * 2.5) + theme('fontSize.lg'))
-    );
+    height: 14.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-svg-h {
+      height: calc(
+        100% - ((theme('padding.mainBtnP') * 2.5) + theme('fontSize.lg'))
+      );
+    }
   }
 
   @keyframes dash {
@@ -80,16 +88,36 @@ import IconWrap from '../components/UI/IconWrap.astro';
 <Layout title={'- Home'} description={'Home Page'} path={'/'}>
   <aside class="fixed bg-white right-[5vw] bottom-2/4 translate-y-2/4"></aside>
   <main
-    class="h-screen min-h-[52em] grid place-content-center bg-center bg-hero-home bg-cover text-white pt-16"
+    class="h-screen min-h-[52em] grid place-content-center bg-center bg-hero-home bg-cover text-white pt-16 text-center"
   >
-    <div class="flex flex-col gap-12 my-container">
-      <h1 class="text-h1">
+    <div class="flex flex-col my-container gap-6 my-5 sm:gap-12 sm:my-0">
+      <h1 class="text-center text-xl sm:text-h1_md lg:text-h1 sm:text-left">
         MOVERS THAT WE{' '}
         <span class="text-clr-green font-semibold">TRUST!</span>
       </h1>
+
       <div class="relative flex justify-center w-fit m-auto">
+        <HeroLine
+          itemsPlacement={'items-end'}
+          lrside={'left-0'}
+          tbside={'bottom-0'}
+          direction={'flex-row-reverse'}
+          moveV={'translate-x-[-105%]'}
+          translateCircleY={'translate-y-2'}
+          translateLineY={'translate-y-full'}
+          translateLineX={'translate-x-[10px]'}
+          linesDirection={'items-start'}
+          rotate={'rotate-45'}
+          rotateOrigin={'origin-top-right'}
+          textLinePos={'self-end'}
+          textLineX={'translate-x-[-2.4rem]'}
+          textAlign={'items-start'}
+          textTranslateX={'translate-x-[2.4rem]'}
+          firstText={'small enough'}
+          secondText={'to care!'}
+        />
         <div
-          class="flex flex-col translate-x-[-0.35rem] justify-between scale-x-[-1] self-stretch"
+          class="hidden sm:flex flex-col translate-x-[-0.35rem] justify-between scale-x-[-1] self-stretch"
         >
           {
             Array(9)
@@ -102,16 +130,38 @@ import IconWrap from '../components/UI/IconWrap.astro';
               ))
           }
         </div>
-        <h2 class="font-semibold relative hero-header inline-flex text-h1">
+        <h2
+          class="font-semibold relative hero-header inline-flex text-xl sm:text-h1_md lg:text-h1"
+        >
           NoWorriesMoving!
         </h2>
+        <HeroLine
+          items-end={'items-start'}
+          lrside={'right-0'}
+          tbside={'top-0'}
+          direction={'flex-row'}
+          moveV={'translate-x-[105%]'}
+          translateCircleY={'translate-y-[-0.5rem]'}
+          translateLineY={'translate-y-negative-100'}
+          translateLineX={'translate-x-[-10px]'}
+          linesDirection={'items-end'}
+          rotate={'rotate-45'}
+          rotateOrigin={'origin-bottom-right'}
+          textLinePos={'self-start'}
+          textLineX={'translate-x-[2.4em]'}
+          textLineY={'translate-y-[-2px]'}
+          textAlign={'items-end'}
+          textTranslateX={'translate-x-[-2.4rem]'}
+          firstText={'big enough'}
+          secondText={'to perform!'}
+        />
       </div>
     </div>
     <div
       class="relative flex flex-col items-center m-auto translate-y-10 my-container"
     >
       <img
-        class="w-2/5 min-w-[25rem]"
+        class="w-1/2 sm:w-2/5 min-w-[22.5rem] sm:min-w-[25rem]"
         src={illustration}
         alt="Book quickly on button click"
       />
@@ -120,7 +170,7 @@ import IconWrap from '../components/UI/IconWrap.astro';
         width="197.484"
         height="546.735"
         viewBox="0 0 197.484 546.735"
-        class="absolute hero-svg-h translate-x-[-5rem] 2xl:translate-x-[-7.5rem]"
+        class="absolute hero-svg-h translate-x-[-2.5rem] sm:translate-x-[-5rem] 2xl:translate-x-[-7.5rem]"
       >
         <g
           id="Group_2600"
@@ -166,16 +216,19 @@ import IconWrap from '../components/UI/IconWrap.astro';
         </g>
       </svg>
 
-      <div class="flex gap-8">
-        <Btn href="/pricing" classes="px-20 py-mainBtnP">BOOK NOW</Btn>
+      <div class="flex flex-col gap-5 sm:gap-8 w-full sm:flex-row sm:w-fit">
+        <Btn href="/pricing" classes="px-12 py-mainBtnP md:px-20 ">BOOK NOW</Btn
+        >
         <a
           href="/services"
-          class="px-20 py-mainBtnP bg-white text-lg font-semibold text-clr-green outline-clr-green outline-offset-[-2px] outline-2 hover:bg-transparent hover:text-white hover:outline"
+          class="px-12 md:px-20 py-mainBtnP bg-white text-lg font-semibold text-clr-green outline-clr-green outline-offset-[-2px] outline-2 hover:bg-transparent hover:text-white hover:outline"
         >
           OUR SERVICES
         </a>
       </div>
-      <div class="absolute flex flex-col bottom-0 left-[7.5vw] gap-3">
+      <div
+        class="hidden sm:flex absolute flex flex-col bottom-0 left-[7.5vw] gap-3"
+      >
         <IconWrap
           href={'https://www.facebook.com/noworriesmoving.us'}
           icon={'grommet-icons:facebook-option'}
@@ -191,4 +244,7 @@ import IconWrap from '../components/UI/IconWrap.astro';
       </div>
     </div>
   </main>
+  <WhyUs />
 </Layout>
+
+<script is:inline></script>
