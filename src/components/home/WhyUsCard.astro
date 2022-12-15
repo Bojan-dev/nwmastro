@@ -41,11 +41,16 @@ const slideLinePosition = slideLine * pageNum;
     >
       <div class="flex flex-col gap-10 z-20">
         <div>
-          <div class="flex w-full justify-between sm:w-5/6">
+          <div class="flex w-full justify-between items-center sm:w-5/6">
             <h3 class="text-h3 md:text-h3_md font-semibold tracking-wide">
               {heading}
             </h3>
-            <img src={icon} alt={iconAlt} class="w-10 aspect-square" />
+            <img
+              src={icon}
+              alt={iconAlt}
+              class="w-10 aspect-square"
+              loading="lazy"
+            />
           </div>
           <div
             class="relative translate-x-[-2rem] h-1 bg-clr-italic mt-4 md:translate-x-[-3rem]"
@@ -76,7 +81,12 @@ const slideLinePosition = slideLine * pageNum;
           imgs && (
             <div class="flex gap-6">
               {imgs.map((imgInfo) => (
-                <img src={imgInfo.img} alt={imgInfo.imgAlt} class="h-16" />
+                <img
+                  src={imgInfo.img}
+                  alt={imgInfo.imgAlt}
+                  class="h-16"
+                  loading="lazy"
+                />
               ))}
             </div>
           )
@@ -99,7 +109,12 @@ const slideLinePosition = slideLine * pageNum;
       <div
         class="max-w-md absolute mx-auto grid place-content-center opacity-10 lg:relative lg:opacity-100 lg:w-3/6 lg:opacity-1 inset-0 z-10"
       >
-        <img src={mainImg} alt={mainImgAlt} class="max-h-rem-40" />
+        <img
+          src={mainImg}
+          alt={mainImgAlt}
+          class="max-h-rem-40"
+          loading="lazy"
+        />
       </div>
     </div>
   </div>

@@ -1,0 +1,39 @@
+---
+import Section from '../global/Section.astro';
+
+type OurOfferCardProps = {
+  img: string;
+  heading: string;
+  text: string;
+};
+
+const ourOfferCards = [
+  {
+    heading: 'Local Move',
+    text: 'Our crews are specially trained to perform local moves efficiently and safely to save time and make your moving day go smoothly.',
+  },
+  {
+    heading: 'Boxes and Supplies',
+    text: 'As a company that has performed over thousands of moves in the last 15 years, we understand how important it is to have a reliable supplier for the needs of your business.',
+  },
+  {
+    heading: 'Secure Storage',
+    text: 'Clean and safe storage is available 24/7, your stuff will be safe with us. Insurance included!',
+  },
+  {
+    heading: 'Expert Packing',
+    text: 'Our Expert Packers have the experience and training to perform all types of full packing services.',
+  },
+  {
+    heading: 'Long Distance Move',
+    text: 'No Worries Moving operates all over the USA from multiple locations which makes the organization of your interstate move easy and stress-free.',
+  },
+];
+---
+
+<Section
+  title="What we offer"
+  titleId="our-offer-title"
+  titleDes="Only the best for our customers!"
+  extraClasses="bg-clr-green--light py-16"
+/>
