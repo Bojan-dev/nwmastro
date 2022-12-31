@@ -1,24 +1,28 @@
 ---
 import Navigation from './Navigation.astro';
 import GoogleAnalytics from '../components/global/GoogleAnalytics.astro';
+import PartnerCompanies from './PartnerCompanies.astro';
+import Footer from './Footer.astro';
+import { GoogleFontsOptimizer } from 'astro-google-fonts-optimizer';
 
 interface HeadProps {
   title: string;
   description: string;
   path: string;
+  is404?: boolean;
 }
 
-const { title, description, path } = Astro.props as HeadProps;
+const { title, description, path, is404 = false } = Astro.props as HeadProps;
 ---
 
 <!DOCTYPE html>
-<html class="overflow-x-hidden scroll-smooth xl:overflow-y-auto" lang="en">
+<html class="scroll-smooth" lang="en">
   <GoogleAnalytics />
   <meta charset="UTF-8" />
   <meta
     name="viewport"
     content="width=device-width, initial-scale = 1.0, 
-    maximum-scale=1.0, user-scalable=no"
+    maximum-scale=5.0"
   />
   <meta name="description" content={description} />
   <meta
@@ -43,19 +47,66 @@ const { title, description, path } = Astro.props as HeadProps;
     property="og:title"
     content="Best Moving company in Illinois - No Worries Moving"
   />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#41ba03" />
   <meta
     name="google-site-verification"
     content="_97MvHbwuJTBgjiwXpXIP0dTSzEnusZW4luU5M5Ung8"
   />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,600;1,300&display=swap"
-    rel="stylesheet"
+  <GoogleFontsOptimizer
+    url={'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;900&family=Poppins:wght@400;500;900&display=swap'}
   />
+
   <title>No Worries Moving {title}</title>
+  <link rel="apple-touch-icon" href="/logo.svg" />
   <link rel="icon" type="image/svg" href="/logo.svg" />
   <body>
-    <Navigation path={path} />
-    <slot />
+    <div class="relative overflow-x-hidden text-base">
+      <Navigation path={path} />
+      <slot />
+      {
+        is404 ? <></> :  (
+          <>
+            <PartnerCompanies />
+            <Footer />
+          </>
+        )
+      }
+    </div>
   </body>
 </html>
+
+<script defer>
+  const homeAnimationParts = document.querySelectorAll('[data-animation]');
+
+  const scrollAnimClsToRemove = {
+  opacity: 'motion-safe:opacity-0',
+  translateX: 'motion-safe:-translate-x-1/2',
+  translateY: 'motion-safe:translate-y-1/2',
+  process: 'work-process-perspective',
+  scale: 'motion-safe:scale-50',
+};
+
+const handleScrollAnimObserver = (entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.dataset.animation
+        .split(' ')
+        .forEach((anim) =>
+          entry.target.classList.remove(scrollAnimClsToRemove[anim])
+        );
+    }
+  });
+};
+
+const elAnimObserverOptions = {
+  threshold: 0.35,
+};
+
+const elScrollAnimObserver = new IntersectionObserver(
+  handleScrollAnimObserver,
+  elAnimObserverOptions
+);
+
+  [...homeAnimationParts].forEach((el) => elScrollAnimObserver.observe(el));
+
+</script>

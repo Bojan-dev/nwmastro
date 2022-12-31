@@ -1,0 +1,24 @@
+---
+import '../components/global/GlobalStyles.astro';
+import fmcsa from '../imgs/global/green-fmcsa.png';
+import promover from '../imgs/global/green-promover.png';
+---
+
+<div class="my-container flex justify-evenly mx-auto">
+  <img
+    src={fmcsa}
+    alt="FMCSA company logo"
+    class="h-20 w-auto lg:h-28 sm:h-24 motion-safe:scale-50 motion-safe:opacity-0 motion-safe:duration-500"
+    width="107"
+    height="112"
+    data-animation="scale opacity"
+  />
+  <img
+    src={promover}
+    alt="PROMover company logo"
+    class="h-20 w-auto lg:h-28 sm:h-24 motion-safe:scale-50 motion-safe:opacity-0 motion-safe:duration-500"
+    width="105"
+    height="112"
+    data-animation="scale opacity"
+  />
+</div>

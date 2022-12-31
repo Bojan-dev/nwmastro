@@ -23,9 +23,11 @@ export type WhyUsCardProps = {
   btnText?: string;
   btnLink?: string;
   isBtnTargetBlank?: boolean;
-  imgs?: { img: string; imgAlt: string }[];
+  imgs?: { img: string; imgAlt: string; imgW: string; imgH: string }[];
   mainImg?: string;
   mainImgAlt?: string;
+  mainImgW: string;
+  mainImgH: string;
 };
 
 const whyUsCards: WhyUsCardProps[] = [
@@ -42,10 +44,12 @@ const whyUsCards: WhyUsCardProps[] = [
     ],
     secondText:
       'Calculate your moving price and get your special discount offer:',
-    btnText: 'Calculate Now',
+    btnText: 'Free Estimate',
     btnLink: 'pricing',
     mainImg: hourlyRate,
     mainImgAlt: 'Man holding the laptop with No Worries Moving logo on it',
+    mainImgW: '400',
+    mainImgH: '460',
   },
   {
     heading: 'Team full of experience',
@@ -57,9 +61,9 @@ const whyUsCards: WhyUsCardProps[] = [
       'We are officially licensed by BBB, FMCSA and PROMOVER.',
     ],
     imgs: [
-      { img: fmcsa, imgAlt: 'fmcsa logo' },
-      { img: promover, imgAlt: 'promover logo' },
-      { img: bbb, imgAlt: 'bbb logo' },
+      { img: fmcsa, imgAlt: 'fmcsa logo', imgW: '149', imgH: '156' },
+      { img: promover, imgAlt: 'promover logo', imgW: '146', imgH: '155' },
+      // { img: bbb, imgAlt: 'bbb logo', imgW: '103', imgH: '155' },
     ],
     secondText: 'Check us out at Google review platform:',
     btnText: 'Customers Reviews',
@@ -69,6 +73,8 @@ const whyUsCards: WhyUsCardProps[] = [
     mainImg: experience,
     mainImgAlt:
       'Mover loading the truck with arrows behind symbolizes growth of the company',
+    mainImgW: '440',
+    mainImgH: '480',
   },
   {
     heading: 'Customers support program',
@@ -87,6 +93,8 @@ const whyUsCards: WhyUsCardProps[] = [
     mainImg: customersSupport,
     mainImgAlt:
       'A Customer Service Representative with a headset on speaking with a customer',
+    mainImgW: '350',
+    mainImgH: '480',
   },
 ];
 ---
@@ -96,10 +104,12 @@ const whyUsCards: WhyUsCardProps[] = [
   titleId="why-us-title"
   titleDes="We are always there to meet the needs of our clients!"
   isContainer={false}
+  dataAtt="why-us"
 >
   <div class="relative">
     <div
-      class="absolute w-full top-1/2 translate-y-negative-50 h-1/5 bg-clr-blue"
+      class="absolute w-full top-1/2 -translate-y-1/2 h-1/5 bg-clr-blue motion-safe:duration-500 motion-safe:opacity-0 motion-safe:translate-y-1/2 ease-out"
+      data-animation="translateY opacity"
     >
     </div>
 
@@ -121,6 +131,8 @@ const whyUsCards: WhyUsCardProps[] = [
         numOfPages={whyUsCards.length}
         mainImg={whyUsCards.at(-1).mainImg}
         mainImgAlt={whyUsCards.at(-1).mainImgAlt}
+        mainImgW={whyUsCards.at(-1).mainImgW}
+        mainImgH={whyUsCards.at(-1).mainImgH}
       />
       {
         whyUsCards.map((cardInfo, i) => (
@@ -139,6 +151,8 @@ const whyUsCards: WhyUsCardProps[] = [
             imgs={cardInfo?.imgs}
             mainImg={cardInfo.mainImg}
             mainImgAlt={cardInfo.mainImgAlt}
+            mainImgW={cardInfo.mainImgW}
+            mainImgH={cardInfo.mainImgH}
           />
         ))
       }
@@ -156,10 +170,12 @@ const whyUsCards: WhyUsCardProps[] = [
         numOfPages={whyUsCards.length}
         mainImg={whyUsCards[0].mainImg}
         mainImgAlt={whyUsCards[0].mainImgAlt}
+        mainImgW={whyUsCards[0].mainImgW}
+        mainImgH={whyUsCards[0].mainImgH}
       />
     </div>
     <div
-      class="absolute w-full max-w-rem-100 h-1/5 hidden sm:flex justify-between items-center translate-y-negative-50 top-1/2 translate-x-negative-50 left-1/2 z-30"
+      class="absolute w-full max-w-rem-100 h-1/5 hidden sm:flex justify-between items-center -translate-y-1/2 top-1/2 -translate-x-1/2 left-1/2 z-30"
     >
       <Icon
         name="ic:twotone-keyboard-arrow-left"
@@ -192,7 +208,7 @@ const whyUsCards: WhyUsCardProps[] = [
   </div>
 </Section>
 
-<script is:global>
+<script defer>
   const slider = document.querySelector('.slider');
   const sliderClasses = ['ease-in-out', 'duration-1000'];
   const leftArrs = document.querySelectorAll('.slider--left-arrow');

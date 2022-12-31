@@ -2,6 +2,7 @@
 import '../components/global/GlobalStyles.astro';
 import { Icon } from 'astro-icon';
 import logo from '../imgs/logostroke.svg';
+import Overlay from '../components/global/Overlay.astro';
 
 type PathProp = {
   path: string;
@@ -10,9 +11,9 @@ type PathProp = {
 const { path } = Astro.props as PathProp;
 
 const activeClasses =
-  'relative before:absolute before:h-1 before:w-full before:bg-clr-green before:bg-clr-green before:bottom-0 before:left-0 before:rounded-xl xl:before:h-[2px] xl:before:w-1/2';
+  'relative before:absolute before:h-1 before:w-full before:bg-clr-green before:bottom-0 before:left-0 before:rounded-xl xl:before:h-0.5 xl:before:w-1/2';
 const hoverClasses =
-  'relative hover:before:absolute hover:before:h-[2px] hover:before:w-1/2 hover:before:bg-clr-green hover:before:bg-clr-green hover:before:bottom-0 hover:before:left-0 hover:before:rounded-xl';
+  'relative before:absolute before:h-0.5 hover:before:w-1/2 hover:before:bg-clr-green hover:before:bottom-0 hover:before:left-0 hover:before:rounded-xl';
 
 const websitePages = [
   'Home',
@@ -27,39 +28,6 @@ const websitePages = [
 ---
 
 <style lang="css">
-  @-webkit-keyframes shake-top {
-    0%,
-    100% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-      -webkit-transform-origin: 50% 0;
-      transform-origin: 50% 0;
-    }
-    10% {
-      -webkit-transform: rotate(2deg);
-      transform: rotate(2deg);
-    }
-    20%,
-    40%,
-    60% {
-      -webkit-transform: rotate(-4deg);
-      transform: rotate(-4deg);
-    }
-    30%,
-    50%,
-    70% {
-      -webkit-transform: rotate(4deg);
-      transform: rotate(4deg);
-    }
-    80% {
-      -webkit-transform: rotate(-2deg);
-      transform: rotate(-2deg);
-    }
-    90% {
-      -webkit-transform: rotate(2deg);
-      transform: rotate(2deg);
-    }
-  }
   @keyframes shake-top {
     0%,
     100% {
@@ -110,21 +78,28 @@ const websitePages = [
       width: 50vw;
     }
   }
+  @media (prefers-reduced-motion) {
+    .shake-top {
+      animation: none;
+    }
+  }
 </style>
 
 <header
-  class="absolute top-0 z-40 flex items-center justify-between text-white min-h-[125px] h-fit my-container min-w-full left-2/4 translate-x-negative-50"
+  class="absolute top-0 z-40 flex items-center justify-between text-white min-h-[125px] h-fit my-container min-w-full left-2/4 -translate-x-1/2"
 >
   <a href="/" class="z-20"
     ><img
+      width="108"
+      height="67"
       src={logo}
       alt="No Worries Moving logo"
-      class="w-24 sm:w-[6.75rem]"
+      class="w-24 sm:w-[6.5rem]"
       loading="lazy"
     />
   </a>
   <nav
-    class="backdrop-blur fixed translate-x-full transition-all duration-500 ease-in overflow-auto pt-32 pb-10 bg-opacity-white h-screen opacity-0 min-h-fit min-w-fit w-10 right-0 top-0 xl:w-fit xl:h-fit xl:block xl:relative xl:bg-transparent xl:pt-0 xl:opacity-100 xl:pb-0 xl:translate-x-0"
+    class="fixed motion-safe:translate-x-full motion-safe:transition-all motion-safe:duration-500 motion-safe:ease-in overflow-auto pt-32 pb-10 bg-white/10 h-screen opacity-0 min-h-fit min-w-fit w-10 right-0 top-0 xl:w-fit xl:h-fit xl:block xl:relative xl:bg-transparent xl:pt-0 xl:opacity-100 xl:pb-0 xl:translate-x-0"
   >
     <ul
       class="flex flex-col items-center text-base gap-10 xl:text-sm xl:flex-row"
@@ -164,7 +139,7 @@ const websitePages = [
     >
     <a
       href="/pricing"
-      class="px-12 py-3 border-clr-green border-[3px] hover:bg-white hover:text-font-gray hover:text-clr-green hover:border-white hidden xl:block"
+      class="px-12 py-3 border-clr-green border-2 hover:bg-white hover:text-font-gray hover:text-clr-green hover:border-white hidden xl:block"
       >Get a Quote</a
     >
     <div
@@ -179,21 +154,18 @@ const websitePages = [
     </div>
   </div>
 </header>
-<div
-  class="overlay hidden fixed opacity-70 z-20 h-screen w-screen bg-black block xl:hidden"
->
-</div>
+<Overlay isRes={true} extraClass={'nav-overlay'} />
 <div class="absolute h-screen top-0 nav-observe 0"></div>
 
-<script is:global>
-  const navClassList = ['absolute', 'translate-y-negative-50'];
+<script defer>
+  const navClassList = ['absolute', '-translate-y-1/2'];
   const toggleClass = (el, classId) => {
     el.classList.toggle(classId);
   };
 
   const hamMenu = document.querySelector('.ham-menu');
   const navigation = document.querySelector('nav');
-  const overlay = document.querySelector('.overlay');
+  const navOverlay = document.querySelector('.nav-overlay');
   const hamChildren = Array.from(hamMenu.children);
   const middleLines = Array.from(hamChildren[1].children);
   const htmlDoc = document.querySelector('html');
@@ -202,24 +174,24 @@ const websitePages = [
   const toggleNav = () => {
     toggleClass(htmlDoc, 'overflow-y-hidden');
     toggleClass(navigation, 'opacity-0');
-    toggleClass(overlay, 'hidden');
-    toggleClass(navigation, 'translate-x-full');
+    toggleClass(navOverlay, 'hidden');
+    toggleClass(navigation, 'motion-safe:translate-x-full');
+    toggleClass(navigation, 'backdrop-blur');
+    toggleClass(navigation, 'navigation-w');
     toggleClass(phone, 'hidden');
   };
 
-  [hamMenu, overlay].forEach((el) => {
+  [hamMenu, navOverlay].forEach((el) => {
     el.addEventListener('click', () => {
       Array.from(hamChildren).forEach((el) => {
         navClassList.forEach((classId) => toggleClass(el, classId));
       });
 
       middleLines.forEach((el) => toggleClass(el, 'opacity-0'));
-
       toggleClass(middleLines[0], 'translate-x-negative-50vw');
       toggleClass(middleLines[1], 'translate-x-64');
       toggleClass(hamChildren[0], 'rotate-45');
-      toggleClass(hamChildren[2], 'rotate-[-45deg]');
-      navigation.classList.toggle('navigation-w');
+      toggleClass(hamChildren[2], '-rotate-45');
       toggleNav();
     });
   });
@@ -227,27 +199,32 @@ const websitePages = [
   const header = document.querySelector('header');
   const navObserver = document.querySelector('.nav-observe');
 
-  const options = {
+  const navigationObserveOptions = {
     root: null,
-    rootMargin: '0px',
     threshold: 0.1,
   };
 
   const classesOnShow = ['transition', 'fixed', 'bg-clr-blue', 'min-h-[85px]'];
   const classesToggle = ['absolute', 'min-h-[125px]'];
 
-  const observeFun = (entries, _) => {
+  const navigationObserveFun = (entries, _) => {
     if (!entries[0].isIntersecting) {
       classesOnShow.forEach((classId) => header.classList.add(classId));
       classesToggle.forEach((classId) => header.classList.remove(classId));
+      toggleClass(phone, 'drop-shadow-phone-shadow');
       return;
     }
 
     classesOnShow.forEach((classId) => header.classList.remove(classId));
     classesToggle.forEach((classId) => header.classList.add(classId));
+    if (!phone.classList.contains('drop-shadow-phone-shadow')) return;
+    toggleClass(phone, 'drop-shadow-phone-shadow');
   };
 
-  const observer = new IntersectionObserver(observeFun, options);
+  const observer = new IntersectionObserver(
+    navigationObserveFun,
+    navigationObserveOptions
+  );
 
   observer.observe(navObserver);
 </script>

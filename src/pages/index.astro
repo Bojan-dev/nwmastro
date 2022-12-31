@@ -2,10 +2,26 @@
 import HeroLine from '../components/home/HeroLine.astro';
 import illustration from '../imgs/home/hero-illustration.svg';
 import Layout from '../layouts/Layout.astro';
+import Overlay from '../components/global/Overlay.astro';
 import Btn from '../components/UI/Btn.astro';
 import IconWrap from '../components/UI/IconWrap.astro';
 import WhyUs from '../components/home/WhyUs.astro';
 import OurOffer from '../components/home/OurOffer.astro';
+import WorkProcess from '../components/home/WorkProcess.astro';
+import Numbers from '../components/home/Numbers.astro';
+import Newsletter from '../components/home/Newsletter.astro';
+import Testimonials from '../components/home/Testimonials.astro';
+import { Icon } from 'astro-icon';
+
+const sections = [
+  'Home',
+  'Why us',
+  'Our Offer',
+  'Process',
+  'Numbers',
+  'Testimonials',
+  'Footer',
+];
 ---
 
 <style>
@@ -41,9 +57,7 @@ import OurOffer from '../components/home/OurOffer.astro';
 
   @media (min-width: 640px) {
     .hero-svg-h {
-      height: calc(
-        100% - ((theme('padding.mainBtnP') * 2.5) + theme('fontSize.lg'))
-      );
+      height: calc(100% - ((theme('padding.5') * 2.5) + theme('fontSize.lg')));
     }
   }
 
@@ -84,15 +98,60 @@ import OurOffer from '../components/home/OurOffer.astro';
     animation: plane 10s linear infinite;
     opacity: 0;
   }
+
+  @media (prefers-reduced-motion) {
+    .svg-path-anim {
+      stroke-dasharray: 0;
+      stroke-dashoffset: 0;
+      animation: none;
+    }
+
+    .svg-plane-anim {
+      opacity: 1;
+      animation: none;
+    }
+  }
 </style>
 
 <Layout title={'- Home'} description={'Home Page'} path={'/'}>
-  <aside class="fixed bg-white right-[5vw] bottom-2/4 translate-y-2/4"></aside>
+  <Overlay extraClass="overlay z-50" />
+  <aside
+    class="fixed right-[7.5vw] bottom-2/4 translate-y-3/4 z-40 hidden lg:flex flex-col gap-8 text-white sections-observer"
+  >
+    <div
+      class="absolute w-0.5 h-[125%] bg-clr-italic left-1/2 -translate-x-1/2"
+    >
+      <div
+        class="absolute w-3 h-3 bg-clr-error--light z-20 bottom-0 left-1/2 -translate-x-1/2 cursor-pointer hover:scale-125 section-observer-close hover:bg-clr-error"
+      >
+        <Icon name="ic:round-close" />
+      </div>
+    </div>
+    {
+      sections.map((section) => (
+        <div
+          class="group relative flex items-center"
+          data-sectionid={section.toLocaleLowerCase().replaceAll(' ', '-')}
+        >
+          <div class="relative w-3 h-3 cursor-pointer bg-white flex items-center border-2 ">
+            <div class="absolute w-full h-full border border-clr-green left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 p-2 hidden section-frame" />
+          </div>
+          <p class="absolute whitespace-nowrap max-w-[8ch] text-ellipsis overflow-hidden xl:overflow-visible translate-x-7 hidden group-hover:block section-name drop-shadow-section-shadow">
+            {section}
+          </p>
+        </div>
+      ))
+    }
+  </aside>
   <main
-    class="h-screen min-h-[52em] grid place-content-center bg-center bg-hero-home bg-cover text-white pt-16 text-center"
+    class="h-screen min-h-rem-55 grid place-content-center bg-center bg-hero-home bg-cover text-white pt-16 text-center"
   >
     <div class="flex flex-col my-container gap-6 my-5 sm:gap-12 sm:my-0">
-      <h1 class="text-center text-xl sm:text-h1_md lg:text-h1 sm:text-left">
+      <h1
+        class="text-center text-xl sm:text-h1_md lg:text-h1 sm:text-left motion-safe:-translate-x-1/2 home-section-heading motion-safe:opacity-0 motion-safe:duration-500"
+        data-section="home"
+        data-animation="translateX opacity"
+      >
         MOVERS THAT WE{' '}
         <span class="text-clr-green font-semibold">TRUST!</span>
       </h1>
@@ -118,12 +177,13 @@ import OurOffer from '../components/home/OurOffer.astro';
           secondText={'to care!'}
         />
         <div
-          class="hidden sm:flex flex-col translate-x-[-0.35rem] justify-between scale-x-[-1] self-stretch"
+          class="hidden sm:flex flex-col translate-x-[-0.35rem] justify-between scale-x-[-1] self-stretch motion-safe:opacity-0 motion-safe:-translate-x-1/2 motion-safe:duration-500 motion-safe:delay-700"
+          data-animation="translateX opacity"
         >
           {
             Array(9)
               .fill('')
-              .map((line, i) => (
+              .map((_, i) => (
                 <div
                   style={{ width: `${(i + 1) * 6}px` }}
                   class="h-px bg-white bkg-lines"
@@ -132,7 +192,8 @@ import OurOffer from '../components/home/OurOffer.astro';
           }
         </div>
         <h2
-          class="font-semibold relative hero-header inline-flex text-xl sm:text-h1_md lg:text-h1"
+          class="font-semibold relative hero-header inline-flex text-xl sm:text-h1_md lg:text-h1 motion-safe:opacity-0 motion-safe:-translate-x-1/2 motion-safe:duration-500 motion-safe:delay-500"
+          data-animation="translateX opacity"
         >
           NoWorriesMoving!
         </h2>
@@ -143,14 +204,14 @@ import OurOffer from '../components/home/OurOffer.astro';
           direction={'flex-row'}
           moveV={'translate-x-[105%]'}
           translateCircleY={'translate-y-[-0.5rem]'}
-          translateLineY={'translate-y-negative-100'}
+          translateLineY={'-translate-y-full'}
           translateLineX={'translate-x-[-10px]'}
           linesDirection={'items-end'}
           rotate={'rotate-45'}
           rotateOrigin={'origin-bottom-right'}
           textLinePos={'self-start'}
-          textLineX={'translate-x-[2.4em]'}
-          textLineY={'translate-y-[-2px]'}
+          textLineX={'translate-x-[2.4rem]'}
+          textLineY={'translate-y-[-1px]'}
           textAlign={'items-end'}
           textTranslateX={'translate-x-[-2.4rem]'}
           firstText={'big enough'}
@@ -162,6 +223,8 @@ import OurOffer from '../components/home/OurOffer.astro';
       class="relative flex flex-col items-center m-auto translate-y-10 my-container"
     >
       <img
+        width="600"
+        height="250"
         class="w-1/2 sm:w-2/5 min-w-[22.5rem] sm:min-w-[25rem]"
         src={illustration}
         alt='Cell phone in front of moving truck pointing to a "Book Now" button'
@@ -171,7 +234,7 @@ import OurOffer from '../components/home/OurOffer.astro';
         width="197.484"
         height="546.735"
         viewBox="0 0 197.484 546.735"
-        class="absolute hero-svg-h translate-x-[-2.5rem] sm:translate-x-[-5rem] 2xl:translate-x-[-7.5rem]"
+        class="absolute hero-svg-h -translate-x-10 sm:-translate-x-20 2xl:translate-x-[-7.5rem]"
       >
         <g
           id="Group_2600"
@@ -218,11 +281,10 @@ import OurOffer from '../components/home/OurOffer.astro';
       </svg>
 
       <div class="flex flex-col gap-5 sm:gap-8 w-full sm:flex-row sm:w-fit">
-        <Btn href="/pricing" classes="px-12 py-mainBtnP md:px-20 ">BOOK NOW</Btn
-        >
+        <Btn href="/pricing" classes="px-12 py-5 md:px-20 ">BOOK NOW</Btn>
         <a
           href="/services"
-          class="px-12 md:px-20 py-mainBtnP bg-white text-lg font-semibold text-clr-green outline-clr-green outline-offset-[-2px] outline-2 hover:bg-transparent hover:text-white hover:outline"
+          class="px-12 md:px-20 py-5 bg-white text-lg font-semibold text-clr-green outline-clr-green outline-offset-[-2px] outline-2 hover:bg-transparent hover:text-white hover:outline"
         >
           OUR SERVICES
         </a>
@@ -233,20 +295,91 @@ import OurOffer from '../components/home/OurOffer.astro';
         <IconWrap
           href={'https://www.facebook.com/noworriesmoving.us'}
           icon={'grommet-icons:facebook-option'}
+          media={'Facebook'}
         />
         <IconWrap
           href={'https://www.instagram.com/noworriesmoving/'}
           icon={'mdi:instagram'}
+          media={'Instagram'}
         />
         <IconWrap
           href={'https://www.linkedin.com/company/noworriesmoving/'}
           icon={'grommet-icons:linkedin-option'}
+          media={'Linkedin'}
         />
       </div>
     </div>
   </main>
   <WhyUs />
   <OurOffer />
+  <WorkProcess />
+  <Numbers />
+  <Newsletter />
+  <Testimonials />
 </Layout>
 
-<script is:inline></script>
+<script defer>
+  const sections = document.querySelectorAll('.home-section-heading');
+  const sectionsPointerWrapper = document.querySelector('.sections-observer');
+  const sectionPointers = Array.from(sectionsPointerWrapper.children).filter(
+    (section) => section.dataset.sectionid
+  );
+
+  sectionPointers.forEach((pointer) =>
+    pointer.addEventListener('click', (e) => {
+      const selectedSection = document.querySelector(
+        `[data-section=${e.target.parentElement.dataset.sectionid}]`
+      );
+
+      selectedSection.scrollIntoView({ block: 'center' });
+    })
+  );
+
+  const handleObservedSectionClasses = (el, elWrapper) => {
+    el.classList.toggle('hidden');
+    el.parentElement.classList.toggle('scale-150');
+    elWrapper.querySelector('.section-name').classList.toggle('hidden');
+  };
+
+  const handleSectionObserve = (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        sectionPointers.forEach((section) => {
+          const sectionFrame = section.querySelector('.section-frame');
+
+          if (sectionFrame.classList.contains('hidden')) return;
+
+          handleObservedSectionClasses(sectionFrame, section);
+        });
+
+        const selectedSectionPointer = sectionsPointerWrapper.querySelector(
+          `[data-sectionid=${entry.target.dataset.section}]`
+        );
+
+        handleObservedSectionClasses(
+          selectedSectionPointer.querySelector('.section-frame'),
+          selectedSectionPointer
+        );
+      }
+    });
+  };
+
+  const sectionObserverOptions = {
+    root: null,
+    threshold: 1,
+  };
+
+  const sectionsObserver = new IntersectionObserver(
+    handleSectionObserve,
+    sectionObserverOptions
+  );
+
+  sections.forEach((section) => sectionsObserver.observe(section));
+
+  const closeObserverBtn = document.querySelector('.section-observer-close');
+
+  closeObserverBtn.addEventListener('click', () => {
+    sectionsPointerWrapper.classList.remove('lg:flex');
+    sections.forEach((section) => sectionsObserver.unobserve(section));
+  });
+</script>

@@ -3,9 +3,14 @@ import '../components/global/GlobalStyles.astro';
 import Navigation from '../layouts/Navigation.astro';
 import { Icon } from 'astro-icon';
 import Btn from '../components/UI/Btn.astro';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<>
+<Layout
+  is404={true}
+  title="- 404!"
+  description="You're on a 404 page of No Worries Moving website. The best solution would probably be to go back. Have a good day!"
+>
   <Navigation />
   <main
     class="h-screen min-h-[50em] bg-center grid place-content-center gap-7 bg-hero-not-found bg-cover pb-[10vh] text-center text-white"
@@ -17,4 +22,4 @@ import Btn from '../components/UI/Btn.astro';
     </p>
     <Btn href="/" classes="px-20 py-3 m-auto">Home Page</Btn>
   </main>
-</>
+</Layout>

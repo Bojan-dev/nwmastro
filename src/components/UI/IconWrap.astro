@@ -4,9 +4,10 @@ import { Icon } from 'astro-icon';
 type PathProp = {
   href: string;
   icon: string;
+  media: string;
 };
 
-const { href, icon } = Astro.props as PathProp;
+const { href, icon, media } = Astro.props as PathProp;
 ---
 
 <a
@@ -14,6 +15,7 @@ const { href, icon } = Astro.props as PathProp;
   rel="noopener"
   target="_blank"
   class="w-9 h-9 grid place-items-center bg-clr-green text-lg rounded-full hover:bg-white hover:text-clr-green"
+  aria-label={media}
 >
   <Icon name={icon} class="shake-top w-8 group-hover:text-clr-green w-5" />
 </a>

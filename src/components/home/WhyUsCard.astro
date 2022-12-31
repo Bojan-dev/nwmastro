@@ -21,6 +21,8 @@ const {
   imgs = null,
   mainImg,
   mainImgAlt,
+  mainImgW,
+  mainImgH,
 } = Astro.props as CardProps;
 
 const slideLine = Number((100 / numOfPages).toFixed(2));
@@ -46,14 +48,16 @@ const slideLinePosition = slideLine * pageNum;
               {heading}
             </h3>
             <img
+              width="35"
+              height="33"
               src={icon}
               alt={iconAlt}
-              class="w-10 aspect-square"
+              class="aspect-square"
               loading="lazy"
             />
           </div>
           <div
-            class="relative translate-x-[-2rem] h-1 bg-clr-italic mt-4 md:translate-x-[-3rem]"
+            class="relative -translate-x-8 h-1 bg-clr-italic mt-4 md:-translate-x-12"
           >
             <div
               class="absolute bg-clr-green h-full"
@@ -82,9 +86,11 @@ const slideLinePosition = slideLine * pageNum;
             <div class="flex gap-6">
               {imgs.map((imgInfo) => (
                 <img
+                  width={imgInfo.imgW}
+                  height={imgInfo.imgH}
                   src={imgInfo.img}
                   alt={imgInfo.imgAlt}
-                  class="h-16"
+                  class="h-16 w-auto"
                   loading="lazy"
                 />
               ))}
@@ -110,6 +116,8 @@ const slideLinePosition = slideLine * pageNum;
         class="max-w-md absolute mx-auto grid place-content-center opacity-10 lg:relative lg:opacity-100 lg:w-3/6 lg:opacity-1 inset-0 z-10"
       >
         <img
+          width={mainImgW}
+          height={mainImgH}
           src={mainImg}
           alt={mainImgAlt}
           class="max-h-rem-40"
