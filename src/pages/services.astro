@@ -1,6 +1,15 @@
 ---
 import '../components/global/GlobalStyles.astro';
 import Layout from '../layouts/Layout.astro';
+import OurFeatures from '../components/services/OurFeatures.astro';
+import OurServices from '../components/services/OurServices.astro';
+
+const serviceList = [
+  'Local Move',
+  'Long Distance Move',
+  'Commercial Move',
+  'Moving Boxes and Supplies',
+];
 ---
 
 <style lang="css">
@@ -63,13 +72,15 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="- Services" description="Services Page" path={'/services'}>
   <main
-    class="relative h-screen text-white text-center min-h-rem-55 max-h-rem-80 bg-[url('/services-bg.svg')] bg-fixed min-[1950px]:bg-none min-[1950px]:bg-clr-blue bg-cover bg-center"
+    class="relative h-screen text-white text-center min-h-rem-55 max-h-rem-80 bg-[url('/services-bg.svg')] bg-fixed bg-cover bg-top min-[1950px]:bg-none min-[1950px]:bg-clr-blue"
   >
     <div class="relative translate-y-64 h-48 flex justify-center">
       <img
         src="./clouds.svg"
         alt="Seven clouds on the sky"
-        class="cloud-movement h-full object-cover"
+        class="cloud-movement"
+        width="1450"
+        height="192"
       />
     </div>
     <div
@@ -533,17 +544,24 @@ import Layout from '../layouts/Layout.astro';
           >
         </span>
       </h1>
-      <div class="gap-4 mx-auto hidden lg:flex">
-        <a href="#">Local Moves</a>
-        |
-        <a href="#">Long Distance Move</a>
-        |
-        <a href="#">Commerical Move</a>
-        |
-        <a href="#">Moving Boxes and Supplies</a>
-        |
-        <a href="#">Free Quote</a>
+
+      <div class="gap-4 mx-auto hidden md:flex">
+        {
+          serviceList.map((service) => (
+            <>
+              <a
+                href="#"
+                class="border-b-2  border-transparent hover:border-clr-green"
+              >
+                {service}
+              </a>
+              {service !== serviceList.at(-1) && <p>|</p>}
+            </>
+          ))
+        }
       </div>
     </div>
   </main>
+  <OurFeatures />
+  <OurServices />
 </Layout>

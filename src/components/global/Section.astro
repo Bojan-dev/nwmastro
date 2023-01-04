@@ -8,7 +8,6 @@ type SectionProps = {
   isContainer: boolean;
   extraClasses?: string;
   dataAtt: string;
-  sectionClass: string;
 };
 
 const {
@@ -18,7 +17,6 @@ const {
   isContainer = true,
   extraClasses = '',
   dataAtt = '',
-  sectionClass = '',
 } = Astro.props as SectionProps;
 
 const isContainerClass = isContainer ? 'my-container' : '';
