@@ -86,7 +86,7 @@ const websitePages = [
 </style>
 
 <header
-  class="absolute top-0 z-40 flex items-center justify-between text-white min-h-[125px] h-fit my-container min-w-full left-2/4 -translate-x-1/2"
+  class="absolute top-0 z-40 flex items-center justify-between text-white min-h-[125px] h-fit my-container min-w-full left-2/4 -translate-x-1/2 border-white"
 >
   <a href="/" class="z-20"
     ><img
@@ -204,7 +204,13 @@ const websitePages = [
     threshold: 0.1,
   };
 
-  const classesOnShow = ['transition', 'fixed', 'bg-clr-blue', 'min-h-[85px]'];
+  const classesOnShow = [
+    'transition',
+    'fixed',
+    'bg-clr-blue',
+    'min-h-[85px]',
+    'shadow-card-shadow',
+  ];
   const classesToggle = ['absolute', 'min-h-[125px]'];
 
   const navigationObserveFun = (entries, _) => {

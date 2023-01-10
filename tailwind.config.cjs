@@ -25,6 +25,7 @@ module.exports = {
         'clr-green': 'hsl(100, 97%, 37%)',
         'clr-green--dark': 'hsl(100, 97%, 32%)',
         'clr-green--light': 'hsl(105, 25%, 97%)',
+        'clr-green--disabled': 'hsl(100, 66%, 95%)',
         'clr-blue': 'hsl(210,86%,42%)',
         'clr-blue--light': 'hsl(200, 99%, 45%)',
         'clr-blue--dark': 'hsl(214, 100%, 29%)',

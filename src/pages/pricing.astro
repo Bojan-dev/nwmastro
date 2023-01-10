@@ -1,8 +1,164 @@
 ---
 import '../components/global/GlobalStyles.astro';
 import Layout from '../layouts/Layout.astro';
+import '../components/global/GlobalStyles.astro';
+import { Icon } from 'astro-icon';
+import moverBox from '../imgs/pricing/mover-box.png';
+import dotsCircle from '../imgs/pricing/dots-circle.png';
+import 'flatpickr/dist/flatpickr.min.css';
 ---
 
 <Layout title="- Pricing" description="Pricing Page" path={'/pricing'}>
-  <h1>Pricing</h1>
+  <main
+    class="h-fit min-h-rem-55 bg-[url('/pricing-bg.svg')] bg-cover bg-center text-clr-text text-center pt-48 md:pt-60 mb-20"
+  >
+    <div class="relative my-container mx-auto flex flex-col gap-24 md:gap-32">
+      <h1
+        class="flex flex-col gap-6 md:gap-12 font-semibold text-white text-h3_md tracking-wide md:text-xl"
+      >
+        <span
+          class="motion-safe:-translate-x-1/2 home-section-heading motion-safe:opacity-0 motion-safe:duration-500"
+          data-animation="translateX opacity"
+          ><span
+            class="relative after:absolute after:h-0.5 after:rounded-xl after:w-full after:bg-clr-green after:bottom-0 md:after:bottom-1.5 after:left-0"
+            >'All-in-One'</span
+          > hourly rate,</span
+        >
+        <span
+          class="motion-safe:-translate-x-1/2 home-section-heading motion-safe:opacity-0 motion-safe:duration-500 motion-safe:delay-500"
+          data-animation="translateX opacity"
+          >Fully <span
+            class="relative after:absolute after:h-0.5 after:rounded-xl after:w-full after:bg-clr-green after:bottom-0 md:after:bottom-1.5 after:left-0"
+            >controlled</span
+          > bill!</span
+        >
+      </h1>
+
+      <div
+        class="relative bg-white rounded-3xl overflow-hidden p-12 flex flex-col items-center gap-12 shadow-card-shadow border border-clr-italic"
+      >
+        <div class="absolute top-0 left-0 h-1.5 bg-clr-italic w-full">
+          <div
+            class="absolute left-0 top-0 h-full w-1/4 bg-clr-green rounded-xl"
+          >
+          </div>
+        </div>
+        <div class="relative flex items-center w-full mb-6">
+          <button
+            class="absolute left-0 flex items-center py-2 px-5 bg-clr-green--light rounded-xl border border-transparent hover:border-clr-text"
+            ><Icon name="ic:round-arrow-left" class="w-8" /> Back</button
+          >
+          <div
+            class="relative mx-auto border border-clr-italic flex gap-3 items-center rounded-xl p-7 overflow-hidden"
+          >
+            <div class="absolute h-0.5 top-0 left-0 bg-clr-green w-full"></div>
+            <Icon
+              name="majesticons:location-marker"
+              class="w-7 text-clr-green"
+            />
+            <h3 class="font-semibold text-lg">Moving Destinations</h3>
+          </div>
+          <p class="absolute right-0 p-2 rounded-xl">
+            <span class="text-clr-green">1</span>/4
+          </p>
+        </div>
+        <div class="flex duration-1000 ease-in-out -translate-x-full">
+          <div class="min-w-full flex flex-col items-center gap-12">
+            <div class="flex flex-col gap-6 w-fit">
+              <label for="pricing-zip-from" class="text-lg"
+                >Pickup Destination:</label
+              >
+              <input
+                type="text"
+                id="pricing-zip-from"
+                pattern="[0-9]{5}"
+                placeholder="Zip Code"
+                class="text-center py-4 px-16 relative rounded-xl border-b-2 border-transparent focus:border-clr-green outline outline-1 outline-clr-italic text-sm"
+              />
+            </div>
+            <div class="w-full flex flex-col items-center gap-6">
+              <p class="text-lg">Moving Radius:</p>
+              <div class="flex gap-20 text-white">
+                <button
+                  class="bg-clr-blue--dark py-4 px-20 rounded-xl hover:scale-105"
+                  >&#60;50 Miles</button
+                ><button
+                  class="bg-clr-blue--dark py-4 px-20 rounded-xl hover:scale-105"
+                  >51-149 Miles</button
+                ><button
+                  class="bg-clr-blue--dark py-4 px-20 rounded-xl hover:scale-105"
+                  >&#62;150+ Miles</button
+                >
+              </div>
+            </div>
+          </div>
+          <div class="min-w-full flex flex-col items-center gap-12">
+            <div class="flex flex-col items-center gap-6">
+              <p class="text-lg">Moving Radius:</p>
+              <input id="date-picker" />
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="relative px-40 py-4 rounded-xl font-semibold mt-6 disabled:bg-clr-green--disabled mt-20 disabled:text-clr-text enabled:bg-clr-green enabled:text-white duration-300 enabled:hover:scale-105"
+          type="submit"
+          >NEXT <Icon
+            name="ic:outline-arrow-right-alt"
+            class="absolute w-8 right-6 top-1/2 -translate-y-1/2 text-clr-"
+          />
+        </button>
+        <div class="bg-clr-green w-12 h-px"></div>
+        <!-- <form class="flex flex-col gap-8"></form> -->
+        <ul class="flex flex-col items-center gap-6">
+          <li
+            class="relative before:absolute before:w-1.5 before:h-1.5 before:bg-clr-green before:rounded-full before:-translate-x-[300%] before:top-1/2 before:-translate-y-1/2"
+          >
+            Paying through installments available.
+          </li>
+          <li
+            class="relative before:absolute before:w-1.5 before:h-1.5 before:bg-clr-green before:rounded-full before:-translate-x-[300%] before:top-1/2 before:-translate-y-1/2"
+          >
+            You can lockdown this price for the next six months!
+          </li>
+        </ul>
+        <img
+          src={moverBox}
+          alt="Mover with the box in his hands"
+          class="absolute bottom-0 right-14 h-44"
+        />
+        <img
+          src={dotsCircle}
+          alt="A circle made of a lot dots"
+          class="absolute bottom-0 left-0 -translate-x-1/4 translate-y-1/4 h-56"
+        />
+      </div>
+    </div>
+  </main>
 </Layout>
+
+<script is:inline src="../../node_modules/flatpickr/dist/flatpickr.js"></script>
+
+<script defer>
+  const calculatorPages = [
+    {
+      title: 'Moving Destinations',
+      img: '<Icon name="majesticons:location-marker" class="w-7 text-clr-green" />',
+    },
+    { title: 'Move Date', img: '' },
+    { title: 'Home Type', img: '' },
+    { title: 'Your Info', img: '' },
+  ];
+
+  let curPricingPage = 1;
+
+  const oneYearInFront = new Date().setFullYear(new Date().getFullYear() + 1);
+
+  flatpickr(document.getElementById('date-picker'), {
+    altInput: true,
+    altFormat: 'F j, Y',
+    dateFormat: 'Y-m-d',
+    minDate: new Date().getTime(),
+    maxDate: new Date(oneYearInFront),
+  });
+</script>

@@ -51,34 +51,58 @@ const ourServicesCards: OurServicesCardProps[] = [
     {
       ourServicesCards.map((service, i) => {
         const isOdd = (i + 1) % 2;
+        const serviceLink = `service-${service.heading
+          .toLowerCase()
+          .replaceAll(' ', '-')}`;
 
         return (
           <>
             <div
               class={`${
                 isOdd ? 'bg-clr-blue--dark' : 'bg-clr-blue'
-              } relative  rounded-3xl flex flex-col grid-cols-4  lg:grid lg:space-between items-center p-12 px-8 md:px-12 gap-7`}
+              } relative  rounded-3xl flex flex-col grid-cols-4 lg:grid lg:space-between items-center p-12 px-8 md:px-12 gap-7 motion-safe:duration-1000 motion-safe:opacity-0 ${
+                isOdd
+                  ? 'motion-safe:-translate-x-1/2'
+                  : 'motion-safe:translate-x-1/2'
+              } ease-out`}
+              data-animationp={`${
+                isOdd ? 'translateX' : 'translateXNeg'
+              } opacity`}
+              id={serviceLink}
             >
-              <div class="absolute h-2.5 top-0 left-1/2 -translate-x-1/2 w-36 bg-clr-green rounded-b-xl" />
+              <div
+                class="absolute h-2.5 top-0 left-1/2 -translate-x-1/2 w-36 bg-clr-green rounded-b-xl"
+                data-animation="child"
+              />
               <p
                 class={`leading-none text-6xl sm:text-7xl font-black opacity-10  lg:hidden`}
               >
                 0{i + 1}
               </p>
-              <div class="flex flex-col items-center gap-7 lg:items-start lg:col-span-2 lg:text-left">
+              <div
+                class={`flex flex-col items-center gap-7  lg:col-span-2 ${
+                  isOdd
+                    ? 'lg:order-first lg:items-start lg:text-left'
+                    : 'lg:order-last lg:items-end lg:text-right'
+                }`}
+              >
                 <div>
                   <p class="mb-1">{service.subHeading}</p>
                   <h3 class="text-h3_md font-semibold">{service.heading}</h3>
                 </div>
                 <div class="bg-clr-green w-12 h-px rounded-xl" />
-                <p class="">{service.text}</p>
+                <p>{service.text}</p>
               </div>
               <p
                 class={`hidden lg:block leading-none text-6xl sm:text-9xl font-black opacity-10 `}
               >
                 0{i + 1}
               </p>
-              <div class="relative w-full grid place-items-center mt-9 lg:mt-0 ">
+              <div
+                class={`relative w-full grid place-items-center mt-9 lg:mt-0 ${
+                  isOdd ? 'lg:order-last ' : 'lg:order-first'
+                }`}
+              >
                 <div
                   class={`z-10 w-11/12 sm:w-4/6 md:w-1/2 aspect-square bg-white rounded-3xl border-8 ${
                     isOdd ? 'border-clr-blue--dark' : 'border-clr-blue'
@@ -86,7 +110,13 @@ const ourServicesCards: OurServicesCardProps[] = [
                 >
                   <img src={service.img} alt="" class="w-5/6" />
                 </div>
-                <div class="absolute top-0 -translate-y-2 sm:-translate-y-3 bg-white w-1/2 sm:w-2/6 aspect-square rounded-3xl lg:top-auto lg:translate-y-0 lg:left-0 lg:-translate-x-4 lg:w-4/6" />
+                <div
+                  class={`absolute top-0 -translate-y-2 sm:-translate-y-3 bg-white w-1/2 sm:w-2/6 aspect-square rounded-3xl lg:top-auto lg:translate-y-0  lg:w-4/6 ${
+                    isOdd
+                      ? 'lg:left-0 lg:-translate-x-4'
+                      : 'lg:right-0 lg:translate-x-4'
+                  }`}
+                />
               </div>
             </div>
             {i + 1 !== ourServicesCards.length && (

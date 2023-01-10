@@ -81,6 +81,7 @@ const { title, description, path, is404 = false } = Astro.props as HeadProps;
   const scrollAnimClsToRemove = {
   opacity: 'motion-safe:opacity-0',
   translateX: 'motion-safe:-translate-x-1/2',
+  translateXNeg:'motion-safe:translate-x-1/2',
   translateY: 'motion-safe:translate-y-1/2',
   process: 'work-process-perspective',
   scale: 'motion-safe:scale-50',
@@ -89,10 +90,12 @@ const { title, description, path, is404 = false } = Astro.props as HeadProps;
 const handleScrollAnimObserver = (entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      entry.target.dataset.animation
-        .split(' ')
+      const isParentAnim = entry.target.dataset.animation === 'child';
+      const animEl = isParentAnim ? entry.target.parentElement : entry.target;
+      const animData = isParentAnim ? animEl.dataset.animationp : animEl.dataset.animation;
+      animData.split(' ')
         .forEach((anim) =>
-          entry.target.classList.remove(scrollAnimClsToRemove[anim])
+        animEl.classList.remove(scrollAnimClsToRemove[anim])
         );
     }
   });

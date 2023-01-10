@@ -72,7 +72,7 @@ const serviceList = [
 
 <Layout title="- Services" description="Services Page" path={'/services'}>
   <main
-    class="relative h-screen text-white text-center min-h-rem-55 max-h-rem-80 bg-[url('/services-bg.svg')] bg-fixed bg-cover bg-top min-[1950px]:bg-none min-[1950px]:bg-clr-blue"
+    class="relative h-screen min-h-rem-55 text-white text-center bg-[url('/services-bg.svg')] bg-cover bg-top min-[1950px]:bg-none min-[1950px]:bg-clr-blue"
   >
     <div class="relative translate-y-64 h-48 flex justify-center">
       <img
@@ -550,7 +550,7 @@ const serviceList = [
           serviceList.map((service) => (
             <>
               <a
-                href="#"
+                href={`#service-${service.toLowerCase().replaceAll(' ', '-')}`}
                 class="border-b-2  border-transparent hover:border-clr-green"
               >
                 {service}
